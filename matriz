@@ -1,0 +1,62 @@
+#include <iostream>
+using namespace std;
+
+int main() {
+    int permissao[3][4] = {
+        {1, 1, 1, 1},
+        {1, 1, 0, 0},
+        {1, 0, 0, 0}
+    };
+
+    int n;
+    int permitidos = 0;
+    int negados = 0;
+
+    cout << "=== Matriz de Permissoes da Rede (simulacao) ===" << endl;
+
+    do {
+        cout << "Quantas consultas de acesso (1 a 10)? ";
+        cin >> n;
+        if (n < 1 || n > 10) {
+            cout << "Valor invalido. Digite um numero entre 1 e 10." << endl;
+        }
+    } while (n < 1 || n > 10);
+
+    for (int i = 0; i < n; i++) {
+        int perfil;
+        int recurso;
+
+        cout << endl << "--- Consulta " << (i + 1) << " ---" << endl;
+
+        do {
+            cout << "Perfil (1=admin, 2=equipe, 3=visitante): ";
+            cin >> perfil;
+            if (perfil < 1 || perfil > 3) {
+                cout << "Perfil invalido. Use 1, 2 ou 3." << endl;
+            }
+        } while (perfil < 1 || perfil > 3);
+
+        do {
+            cout << "Recurso (1=avisos, 2=intranet, 3=relatorios, 4=administracao): ";
+            cin >> recurso;
+            if (recurso < 1 || recurso > 4) {
+                cout << "Recurso invalido. Use 1, 2, 3 ou 4." << endl;
+            }
+        } while (recurso < 1 || recurso > 4);
+
+        if (permissao[perfil - 1][recurso - 1] == 1) {
+            cout << "Perfil " << perfil << " / recurso " << recurso << " -> PERMITIDO" << endl;
+            permitidos = permitidos + 1;
+        } else {
+            cout << "Perfil " << perfil << " / recurso " << recurso << " -> NEGADO" << endl;
+            negados = negados + 1;
+        }
+    }
+
+    cout << endl << "=== RESUMO ===" << endl;
+    cout << "Consultas realizadas: " << n << endl;
+    cout << "Permitidas: " << permitidos << endl;
+    cout << "Negadas: " << negados << endl;
+
+    return 0;
+}
